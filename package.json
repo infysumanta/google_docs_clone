@@ -4,7 +4,8 @@
   "description": "A Google Docs Clone with React, Node, Socket.IO and MongoDB",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
