@@ -1,16 +1,27 @@
+const express = require("express");
+const app = express();
+require("dotenv").config();
 const mongoose = require("mongoose");
 const Document = require("./Document");
-
-mongoose.connect("mongodb://localhost/google-docs-clone", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const io = require("socket.io")(3001, {
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const path = require("path");
+const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
   },
+});
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "client", "build")));
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 const defaultValue = "";
@@ -38,3 +49,7 @@ async function findOrCreateDocument(id) {
   if (document) return document;
   return await Document.create({ _id: id, data: defaultValue });
 }
+const port = process.env.PORT || 5000;
+server.listen(port, () => {
+  console.log("listening on *:5000");
+});

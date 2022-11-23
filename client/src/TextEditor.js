@@ -23,7 +23,10 @@ export default function TextEditor() {
   const [quill, setQuill] = useState();
 
   useEffect(() => {
-    const s = io("http://localhost:3001");
+    const socketURl =
+      process.env.NODE_ENV === "development" ? "http://localhost:5000" : "/";
+
+    const s = io(socketURl);
     setSocket(s);
 
     return () => {
