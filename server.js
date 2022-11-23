@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+const app = App(express());
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Document = require("./Document");
@@ -49,7 +49,4 @@ async function findOrCreateDocument(id) {
   if (document) return document;
   return await Document.create({ _id: id, data: defaultValue });
 }
-const port = process.env.PORT || 5000;
-server.listen(port, () => {
-  console.log("listening on *:5000");
-});
+module.exports = server;

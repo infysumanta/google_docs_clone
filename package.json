@@ -4,8 +4,8 @@
   "description": "A Google Docs Clone with React, Node, Socket.IO and MongoDB",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
